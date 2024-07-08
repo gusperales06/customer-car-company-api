@@ -17,7 +17,7 @@ hibernate:
   show_sql: true
 sqlite:
   driver-class-name: org.sqlite.JDBC
-  url: jdbc:sqlite:/Users/gusperales06/workspace/sql/car-company-database/car-database.db
+  url: jdbc:sqlite:${URI}/sql/car-company-database/car-database.db
 logging:
   level:
     org:
