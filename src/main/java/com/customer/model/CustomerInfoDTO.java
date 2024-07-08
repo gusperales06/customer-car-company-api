@@ -59,7 +59,7 @@ public class CustomerInfoDTO extends CustomerDTO {
         return new CustomerInfoBuilder();
     }
 
-    static class CustomerInfoBuilder {
+    public static class CustomerInfoBuilder {
         String gender;
         String householdIncome;
         String phoneNumber;
