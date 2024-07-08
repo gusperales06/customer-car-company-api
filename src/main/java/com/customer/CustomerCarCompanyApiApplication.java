@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "com.customer")
 public class CustomerCarCompanyApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CustomerCarCompanyApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CustomerCarCompanyApiApplication.class, args);
+    }
 
 }
