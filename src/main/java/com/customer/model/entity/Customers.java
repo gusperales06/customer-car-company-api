@@ -1,9 +1,5 @@
 package com.customer.model.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,46 +11,100 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "Customers")
-@NoArgsConstructor
-@Getter
 public class Customers {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "customer_id")
     private Integer customerId;
 
-    @Setter
     @Column(name = "first_name")
     private String firstName;
 
-    @Setter
     @Column(name = "last_name")
     private String lastName;
 
-    @Setter
     @Column
     private String birthdate;
 
-    @Setter
     @Column
     private String gender;
 
-    @Setter
     @Column(name = "household_income")
     private String householdIncome;
 
-    @Setter
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Setter
     @Column
     private String email;
+
+    public Customers() {
+    }
 
     public Customers(String firstName, String lastName, String birthdate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getHouseholdIncome() {
+        return householdIncome;
+    }
+
+    public void setHouseholdIncome(String householdIncome) {
+        this.householdIncome = householdIncome;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

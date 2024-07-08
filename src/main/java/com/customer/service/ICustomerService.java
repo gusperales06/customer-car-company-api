@@ -1,6 +1,7 @@
 package com.customer.service;
 
 import com.customer.exception.CustomerIdException;
+import com.customer.model.CustomerDTO;
 import com.customer.model.CustomerInfoDTO;
 import com.customer.model.entity.Customers;
 
@@ -11,7 +12,7 @@ public interface ICustomerService {
 
     Customers getCustomerId(final Integer id) throws CustomerIdException;
 
-    Customers createCustomer(final CustomerInfoDTO newCustomer);
+    Customers createCustomer(final CustomerDTO newCustomer);
 
     void deleteCustomer(final Integer id) throws CustomerIdException;
 }

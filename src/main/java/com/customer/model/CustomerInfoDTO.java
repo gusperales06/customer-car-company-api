@@ -2,21 +2,16 @@ package com.customer.model;
 
 import java.util.Objects;
 
-public class CustomerInfoDTO extends CustomerDTO {
+public class CustomerInfoDTO {
     private String gender;
     private String householdIncome;
     private String phoneNumber;
     private String email;
 
     public CustomerInfoDTO() {
-        super();
     }
 
-    public CustomerInfoDTO(String firstName, String lastName, String birthdate) {
-        super(firstName, lastName, birthdate);
-    }
-
-    protected CustomerInfoDTO(String gender, String householdIncome, String phoneNumber, String email) {
+    public CustomerInfoDTO(String gender, String householdIncome, String phoneNumber, String email) {
         this.gender = gender;
         this.householdIncome = householdIncome;
         this.phoneNumber = phoneNumber;
@@ -55,38 +50,39 @@ public class CustomerInfoDTO extends CustomerDTO {
         this.email = email;
     }
 
-    public static CustomerInfoBuilder builder() {
-        return new CustomerInfoBuilder();
-    }
-
     public static class CustomerInfoBuilder {
-        String gender;
-        String householdIncome;
-        String phoneNumber;
-        String email;
+        private final CustomerDTO parent;
+        private String gender;
+        private String householdIncome;
+        private String phoneNumber;
+        private String email;
 
-        public CustomerInfoBuilder gender(String gender) {
+        public CustomerInfoBuilder(final CustomerDTO parent) {
+            this.parent = parent;
+        }
+
+        public CustomerInfoBuilder gender(final String gender) {
             this.gender = gender;
             return this;
         }
 
-        public CustomerInfoBuilder householdIncome(String householdIncome) {
+        public CustomerInfoBuilder householdIncome(final String householdIncome) {
             this.householdIncome = householdIncome;
             return this;
         }
 
-        public CustomerInfoBuilder phoneNumber(String phoneNumber) {
+        public CustomerInfoBuilder phoneNumber(final String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
 
-        public CustomerInfoBuilder email(String email) {
+        public CustomerInfoBuilder email(final String email) {
             this.email = email;
             return this;
         }
 
-        public CustomerInfoDTO build() {
-            return new CustomerInfoDTO(gender, householdIncome, phoneNumber, email);
+        public CustomerDTO build() {
+            return parent.customersInfo(new CustomerInfoDTO(gender, householdIncome, phoneNumber, email));
         }
     }
 

@@ -1,7 +1,7 @@
 package com.customer.service.impl;
 
 import com.customer.exception.CustomerIdException;
-import com.customer.model.CustomerInfoDTO;
+import com.customer.model.CustomerDTO;
 import com.customer.model.converter.CustomerConverter;
 import com.customer.model.entity.Customers;
 import com.customer.repository.CustomerRepository;
@@ -38,7 +38,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     @Transactional
-    public Customers createCustomer(final CustomerInfoDTO newCustomer) {
+    public Customers createCustomer(final CustomerDTO newCustomer) {
         var customerConverted = new CustomerConverter() //
                 .convert(newCustomer);
         return customerRepository.saveAndFlush(Objects.requireNonNull(customerConverted));

@@ -1,11 +1,13 @@
 package com.customer.model;
 
 import java.util.Objects;
+import com.customer.model.CustomerInfoDTO.CustomerInfoBuilder;
 
 public class CustomerDTO {
     private String firstName;
     private String lastName;
     private String birthdate;
+    private CustomerInfoDTO customersInfo;
 
     public CustomerDTO() {
     }
@@ -38,6 +40,19 @@ public class CustomerDTO {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public CustomerInfoDTO getCustomersInfo() {
+        return customersInfo;
+    }
+
+    public CustomerInfoBuilder customerInfo() {
+        return new CustomerInfoBuilder(this);
+    }
+
+    CustomerDTO customersInfo(CustomerInfoDTO customerInfo) {
+        this.customersInfo = customerInfo;
+        return this;
     }
 
     @Override
