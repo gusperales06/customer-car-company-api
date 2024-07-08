@@ -39,4 +39,10 @@ public class CustomerService implements ICustomerService {
         var lCustomer = customerConverter.convert(newCustomer);
         return customerRepository.saveAndFlush(Objects.requireNonNull(lCustomer));
     }
+
+    @Override
+    public void deleteCustomer(final Integer id) throws CustomerIdException {
+        this.getCustomerId(id);
+        customerRepository.deleteById(id);
+    }
 }

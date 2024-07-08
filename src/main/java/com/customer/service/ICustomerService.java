@@ -12,4 +12,6 @@ public interface ICustomerService {
     Customers getCustomerId(final Integer id) throws CustomerIdException;
 
     Customers createCustomer(final CustomerInfoDTO newCustomer);
+
+    void deleteCustomer(final Integer id) throws CustomerIdException;
 }
