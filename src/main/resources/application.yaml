@@ -1,0 +1,29 @@
+server:
+  port: ${PORT}
+  servlet:
+    context-path: /customer-car
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  application:
+    name: customer-car-company-api
+  jackson:
+    date-format: yyyy-MM-dd
+    property-naming-strategy: SNAKE_CASE
+    jpa:
+      database-platform: org.sqlite.hibernate.dialect.SQLiteDialect
+hibernate:
+  show_sql: true
+sqlite:
+  driver-class-name: org.sqlite.JDBC
+  url: jdbc:sqlite:/Users/gusperales06/workspace/sql/car-company-database/car-database.db
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+      type:
+        descriptor:
+          sql:
+            BasicBinder: TRACE
