@@ -8,6 +8,7 @@ import com.customer.repository.CustomerRepository;
 import com.customer.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,24 +24,28 @@ public class CustomerService implements ICustomerService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Customers> getAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Customers getCustomerId(final Integer id) throws CustomerIdException {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerIdException("The given Customer ID was not found"));
     }
 
     @Override
+    @Transactional
     public Customers createCustomer(final CustomerInfoDTO newCustomer) {
-        var customerConverter = new CustomerConverter();
-        var lCustomer = customerConverter.convert(newCustomer);
-        return customerRepository.saveAndFlush(Objects.requireNonNull(lCustomer));
+        var customerConverted = new CustomerConverter() //
+                .convert(newCustomer);
+        return customerRepository.saveAndFlush(Objects.requireNonNull(customerConverted));
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerIdException.class)
     public void deleteCustomer(final Integer id) throws CustomerIdException {
         this.getCustomerId(id);
         customerRepository.deleteById(id);
