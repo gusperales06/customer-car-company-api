@@ -1,6 +1,7 @@
 package com.customer.controller;
 
 import com.customer.exception.CustomerIdException;
+import com.customer.model.CustomerInfoDTO;
 import com.customer.model.entity.Customers;
 import com.customer.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class CustomersController {
     }
 
     @RequestMapping(method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createCustomer(@RequestBody final Customers newCustomer) {
+    public ResponseEntity<?> createCustomer(@RequestBody final CustomerInfoDTO newCustomer) {
         var customerCreated = customerService.createCustomer(newCustomer);
         var newURL = ServletUriComponentsBuilder.fromCurrentRequest() //
                 .path("/id/{id}")
