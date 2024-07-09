@@ -1,7 +1,7 @@
 package com.customer.service.impl;
 
 import com.customer.exception.CustomerIdException;
-import com.customer.model.CustomerDTO;
+import com.customer.model.dto.CustomerDTO;
 import com.customer.model.converter.CustomerConverter;
 import com.customer.model.entity.Customers;
 import com.customer.repository.CustomerRepository;
@@ -31,7 +31,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    public Customers getCustomerId(final Integer id) throws CustomerIdException {
+    public Customers getCustomerById(final Integer id) throws CustomerIdException {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerIdException("The given Customer ID was not found"));
     }
@@ -47,7 +47,7 @@ public class CustomerService implements ICustomerService {
     @Override
     @Transactional(rollbackFor = CustomerIdException.class)
     public void deleteCustomer(final Integer id) throws CustomerIdException {
-        this.getCustomerId(id);
+        this.getCustomerById(id);
         customerRepository.deleteById(id);
     }
 }
