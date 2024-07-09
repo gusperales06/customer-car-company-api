@@ -42,14 +42,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({CustomerIdException.class})
-    public ResponseEntity<?> handleCustomerNotFound(final HttpServletRequest request, CustomerIdException cEx) {
+    public ResponseEntity<?> handleCustomerNotFoundException(final HttpServletRequest request, CustomerIdException cEx) {
         LOGGER.info("Customer Exception Occurred!!! url={}", request.getRequestURL());
         return ResponseEntity.status(NOT_FOUND)
                 .body(cEx.getMessage());
     }
 
+    @ExceptionHandler({NonCustomerChangesException.class})
+    public ResponseEntity<?> handleNonCustomerChangesException(final HttpServletRequest request, NonCustomerChangesException nccEx) {
+        LOGGER.info("Customer Update Exception Occurred!!! url={}", request.getRequestURL());
+        return ResponseEntity.badRequest()
+                .body(nccEx.getMessage());
+    }
+
     @ExceptionHandler({EmptyResultDataAccessException.class})
-    public ResponseEntity<?> handleEmptyResultDataAccess(final HttpServletRequest request, EmptyResultDataAccessException erdaEx) {
+    public ResponseEntity<?> handleEmptyResultDataAccessException(final HttpServletRequest request, EmptyResultDataAccessException erdaEx) {
         LOGGER.info("Data Access Exception Occurred!!! url={}", request.getRequestURL());
         return ResponseEntity.badRequest()
                 .body(erdaEx.getMessage());
