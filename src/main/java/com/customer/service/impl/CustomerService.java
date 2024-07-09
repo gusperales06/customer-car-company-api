@@ -1,8 +1,9 @@
 package com.customer.service.impl;
 
 import com.customer.exception.CustomerIdException;
-import com.customer.model.dto.CustomerDTO;
+import com.customer.exception.NonCustomerChangesException;
 import com.customer.model.converter.CustomerConverter;
+import com.customer.model.dto.CustomerDTO;
 import com.customer.model.entity.Customers;
 import com.customer.repository.CustomerRepository;
 import com.customer.service.ICustomerService;
@@ -22,6 +23,13 @@ public class CustomerService implements ICustomerService {
         this.customerRepository = customerRepository;
     }
 
+    @Override
+    @Transactional
+    public Customers createCustomer(final CustomerDTO newCustomer) {
+        var customerConverted = new CustomerConverter() //
+                .convert(newCustomer);
+        return customerRepository.saveAndFlush(Objects.requireNonNull(customerConverted));
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -37,17 +45,23 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    @Transactional
-    public Customers createCustomer(final CustomerDTO newCustomer) {
-        var customerConverted = new CustomerConverter() //
-                .convert(newCustomer);
-        return customerRepository.saveAndFlush(Objects.requireNonNull(customerConverted));
+    @Transactional(rollbackFor = {CustomerIdException.class, NonCustomerChangesException.class})
+    public void updateCustomerById(final Integer id, final CustomerDTO customerToUpdate) {
+        var customer = this.getCustomerById(id);
+        var customerUpdated = new CustomerConverter(id) //
+                .convert(customerToUpdate);
+        if (Objects.equals(customer, customerUpdated)) {
+            throw new NonCustomerChangesException("The given Customer has no fields to update");
+        }
+        customerRepository.saveAndFlush(Objects.requireNonNull(customerUpdated));
     }
 
     @Override
     @Transactional(rollbackFor = CustomerIdException.class)
     public void deleteCustomer(final Integer id) throws CustomerIdException {
-        this.getCustomerById(id);
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerIdException("The given Customer ID was not found");
+        }
         customerRepository.deleteById(id);
     }
 }

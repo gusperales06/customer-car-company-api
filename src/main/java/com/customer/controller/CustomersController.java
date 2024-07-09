@@ -23,6 +23,7 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 @RestController
 @RequestMapping(path = "/api/v1/customer")
 public class CustomersController {
+    public static final String ID_URI = "/id/{id}";
     private final ICustomerService customerService;
 
     @Autowired
@@ -34,7 +35,7 @@ public class CustomersController {
     public ResponseEntity<?> createCustomer(@Valid @RequestBody final CustomerDTO newCustomer) {
         var customerCreated = customerService.createCustomer(newCustomer);
         var newURL = ServletUriComponentsBuilder.fromCurrentRequest() //
-                .path("/id/{id}")
+                .path(ID_URI)
                 .buildAndExpand(customerCreated.getCustomerId())
                 .toUri();
         return ResponseEntity.created(newURL) //
@@ -47,19 +48,21 @@ public class CustomersController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/id/{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = ID_URI, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getCustomerById(@PathVariable(name = "id") final Integer id) throws CustomerIdException {
         var response = customerService.getCustomerById(id);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/id/{id}", consumes = APPLICATION_JSON_VALUE, produces = TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> updateCustomerById(@PathVariable(name = "id") final Integer id, @Valid @RequestBody final CustomerDTO updateCustomer) {
+    @PutMapping(path = ID_URI, consumes = APPLICATION_JSON_VALUE, produces = TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> updateCustomerById(@PathVariable(name = "id") final Integer id,
+                                                @Valid @RequestBody final CustomerDTO updateCustomer) throws CustomerIdException {
+        customerService.updateCustomerById(id, updateCustomer);
         return ResponseEntity.accepted()
                 .build();
     }
 
-    @DeleteMapping(path = "/id/{id}")
+    @DeleteMapping(path = ID_URI)
     public ResponseEntity<?> deleteCustomer(@PathVariable(name = "id") final Integer id) throws CustomerIdException {
         customerService.deleteCustomer(id);
         return ResponseEntity.accepted() //
