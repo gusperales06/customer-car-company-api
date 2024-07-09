@@ -52,6 +52,10 @@ public class Customers {
         return customerId;
     }
 
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -113,7 +117,10 @@ public class Customers {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customers customers = (Customers) o;
-        return Objects.equals(customerId, customers.customerId) && Objects.equals(firstName, customers.firstName) && Objects.equals(lastName, customers.lastName) && Objects.equals(birthdate, customers.birthdate) && Objects.equals(gender, customers.gender) && Objects.equals(householdIncome, customers.householdIncome) && Objects.equals(phoneNumber, customers.phoneNumber) && Objects.equals(email, customers.email);
+        return Objects.equals(firstName, customers.firstName) && Objects.equals(lastName, customers.lastName) &&
+                Objects.equals(birthdate, customers.birthdate) && Objects.equals(gender, customers.gender) &&
+                Objects.equals(householdIncome, customers.householdIncome) && Objects.equals(phoneNumber, customers.phoneNumber) &&
+                Objects.equals(email, customers.email);
     }
 
     @Override
