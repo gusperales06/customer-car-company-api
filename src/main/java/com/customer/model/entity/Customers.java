@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -24,7 +25,7 @@ public class Customers {
     private String lastName;
 
     @Column
-    private String birthdate;
+    private LocalDate birthdate;
 
     @Column
     private String gender;
@@ -41,7 +42,7 @@ public class Customers {
     public Customers() {
     }
 
-    public Customers(String firstName, String lastName, String birthdate) {
+    public Customers(String firstName, String lastName, LocalDate birthdate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -67,11 +68,11 @@ public class Customers {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
