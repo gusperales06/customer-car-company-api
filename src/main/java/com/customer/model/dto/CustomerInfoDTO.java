@@ -1,11 +1,21 @@
-package com.customer.model;
+package com.customer.model.dto;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class CustomerInfoDTO {
+    @Size(min = 4, max = 6)
     private String gender;
+
+    @PositiveOrZero(message = "The 'Household Income' must be equal or grater than 0")
     private String householdIncome;
+
+    @Size(min = 10, max = 13, message = "The 'Phone Number' must be valid")
     private String phoneNumber;
+
+    @Pattern(regexp = "^([\\w-\\.]+){1,64}@(\\w&&[^_]+){2,255}.[a-z]{2,}$", message = "The 'E-mail' must be a valid one")
     private String email;
 
     public CustomerInfoDTO() {
@@ -92,7 +102,8 @@ public class CustomerInfoDTO {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         CustomerInfoDTO that = (CustomerInfoDTO) o;
-        return Objects.equals(gender, that.gender) && Objects.equals(householdIncome, that.householdIncome) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(email, that.email);
+        return Objects.equals(gender, that.gender) && Objects.equals(householdIncome, that.householdIncome) &&
+                Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(email, that.email);
     }
 
     @Override
