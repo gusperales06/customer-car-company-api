@@ -1,6 +1,6 @@
-package com.customer.model;
+package com.customer.model.dto;
 
-import com.customer.model.CustomerInfoDTO.CustomerInfoBuilder;
+import com.customer.model.dto.CustomerInfoDTO.CustomerInfoBuilder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

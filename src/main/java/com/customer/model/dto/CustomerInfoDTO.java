@@ -1,4 +1,4 @@
-package com.customer.model;
+package com.customer.model.dto;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
