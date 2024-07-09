@@ -2,13 +2,17 @@ package com.customer.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -21,6 +25,20 @@ public class GlobalExceptionHandler {
         LOGGER.info("SQL Exception Occurred!!! url={}", request.getRequestURL());
         return ResponseEntity.internalServerError()
                 .body(ex.getMessage());
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<?> handleArgumentValidException(final HttpServletRequest request, MethodArgumentNotValidException manvEx) {
+        LOGGER.info("Bean Validation Exception Occurred!!! url={}", request.getRequestURL());
+        var body = new HashMap<>();
+        var errors = manvEx.getBindingResult() //
+                .getFieldErrors()
+                .stream() //
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.toList());
+        body.put("errors", errors);
+        return ResponseEntity.badRequest()
+                .body(body);
     }
 
     @ExceptionHandler({CustomerIdException.class})
