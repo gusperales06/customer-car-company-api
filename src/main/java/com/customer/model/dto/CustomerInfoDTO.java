@@ -100,7 +100,6 @@ public class CustomerInfoDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         CustomerInfoDTO that = (CustomerInfoDTO) o;
         return Objects.equals(gender, that.gender) && Objects.equals(householdIncome, that.householdIncome) &&
                 Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(email, that.email);
@@ -108,7 +107,7 @@ public class CustomerInfoDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), gender, householdIncome, phoneNumber, email);
+        return Objects.hash(gender, householdIncome, phoneNumber, email);
     }
 
     @Override

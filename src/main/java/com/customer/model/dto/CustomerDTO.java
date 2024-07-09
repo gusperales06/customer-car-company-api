@@ -76,12 +76,15 @@ public class CustomerDTO {
         if (o == null || getClass() != o.getClass()) return false;
         CustomerDTO that = (CustomerDTO) o;
         return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) &&
-                Objects.equals(birthdate, that.birthdate);
+                Objects.equals(birthdate, that.birthdate) && Objects.equals(customersInfo.getGender(), that.customersInfo.getGender()) &&
+                Objects.equals(customersInfo.getHouseholdIncome(), that.customersInfo.getHouseholdIncome()) &&
+                Objects.equals(customersInfo.getPhoneNumber(), that.customersInfo.getHouseholdIncome()) &&
+                Objects.equals(customersInfo.getEmail(), that.customersInfo.getEmail());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, birthdate);
+        return Objects.hash(firstName, lastName, birthdate, customersInfo);
     }
 
     @Override
@@ -89,7 +92,8 @@ public class CustomerDTO {
         return "CustomerDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthdate='" + birthdate + '\'' +
+                ", birthdate=" + birthdate +
+                ", customersInfo=" + customersInfo +
                 '}';
     }
 }
