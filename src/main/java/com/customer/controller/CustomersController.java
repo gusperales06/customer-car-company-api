@@ -5,6 +5,7 @@ import com.customer.model.dto.CustomerDTO;
 import com.customer.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
 @RestController
-@RequestMapping(path = "/api/v1/customer")
+@RequestMapping(path = "/api/v1/customers")
+@Validated
 public class CustomersController {
     public static final String ID_URI = "/id/{id}";
     private final ICustomerService customerService;
@@ -31,7 +33,7 @@ public class CustomersController {
         this.customerService = customerService;
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = TEXT_PLAIN_VALUE)
+    @PostMapping(path = "/", consumes = APPLICATION_JSON_VALUE, produces = TEXT_PLAIN_VALUE)
     public ResponseEntity<?> createCustomer(@Valid @RequestBody final CustomerDTO newCustomer) {
         var customerCreated = customerService.createCustomer(newCustomer);
         var newURL = ServletUriComponentsBuilder.fromCurrentRequest() //
@@ -42,7 +44,7 @@ public class CustomersController {
                 .build();
     }
 
-    @GetMapping(path = "/all", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllCustomers() {
         var response = customerService.getAllCustomers();
         return ResponseEntity.ok(response);
@@ -58,7 +60,7 @@ public class CustomersController {
     public ResponseEntity<?> updateCustomerById(@PathVariable(name = "id") final Integer id,
                                                 @Valid @RequestBody final CustomerDTO updateCustomer) throws CustomerIdException {
         customerService.updateCustomerById(id, updateCustomer);
-        return ResponseEntity.accepted()
+        return ResponseEntity.accepted() //
                 .build();
     }
 
