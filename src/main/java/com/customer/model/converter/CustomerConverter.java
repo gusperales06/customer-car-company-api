@@ -3,7 +3,11 @@ package com.customer.model.converter;
 import com.customer.model.dto.CustomerDTO;
 import com.customer.model.entity.Customers;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
+@Component
 public class CustomerConverter implements Converter<CustomerDTO, Customers> {
     private Integer customerId;
     private Customers customer;
@@ -26,7 +30,7 @@ public class CustomerConverter implements Converter<CustomerDTO, Customers> {
     }
 
     private void mapCustomerAdditionalInfo(CustomerDTO source) {
-        if (source.getCustomersInfo() != null) {
+        if (!Objects.equals(source, null)) {
             customer.setGender(source.getCustomersInfo().getGender());
             customer.setHouseholdIncome(source.getCustomersInfo().getHouseholdIncome());
             customer.setPhoneNumber(source.getCustomersInfo().getPhoneNumber());
