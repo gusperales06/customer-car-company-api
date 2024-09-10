@@ -30,7 +30,7 @@ public class CustomerConverter implements Converter<CustomerDTO, Customers> {
     }
 
     private void mapCustomerAdditionalInfo(CustomerDTO source) {
-        if (!Objects.equals(source, null)) {
+        if (!Objects.equals(source.getCustomersInfo(), null)) {
             customer.setGender(source.getCustomersInfo().getGender());
             customer.setHouseholdIncome(source.getCustomersInfo().getHouseholdIncome());
             customer.setPhoneNumber(source.getCustomersInfo().getPhoneNumber());
