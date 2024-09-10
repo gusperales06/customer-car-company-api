@@ -53,7 +53,7 @@ public class CustomerService implements ICustomerService {
         if (Objects.equals(customer, customerUpdated)) {
             throw new NonCustomerChangesException("The given Customer has no fields to update");
         }
-        customerRepository.saveAndFlush(Objects.requireNonNull(customerUpdated));
+        customerRepository.save(Objects.requireNonNull(customerUpdated));
     }
 
     @Override
