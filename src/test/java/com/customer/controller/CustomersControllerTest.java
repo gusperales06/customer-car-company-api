@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
@@ -103,7 +104,7 @@ class CustomersControllerTest {
 
     @Test
     void getCustomerById() throws Exception {
-        when(service.getCustomerById(1)).thenReturn(dummyEntity);
+        when(service.getCustomerById(anyInt())).thenReturn(dummyEntity);
 
         var mvcResult = mockMvc.perform(get("/api/v1/customers/id/{id}", 1)
                         .contentType(APPLICATION_JSON_VALUE)
@@ -120,7 +121,7 @@ class CustomersControllerTest {
     @Test
     void updateCustomerById() throws Exception {
         var c = objMapper.writeValueAsString(dummyCustomer);
-        when(service.getCustomerById(1)).thenReturn(dummyEntity);
+        when(service.getCustomerById(anyInt())).thenReturn(dummyEntity);
 
         mockMvc.perform(put("/api/v1/customers/id/{id}", 1)
                         .contentType(APPLICATION_JSON_VALUE)
@@ -131,7 +132,7 @@ class CustomersControllerTest {
 
     @Test
     void deleteCustomer() throws Exception {
-        doNothing().when(service).deleteCustomer(1);
+        doNothing().when(service).deleteCustomer(anyInt());
 
         mockMvc.perform(delete("/api/v1/customers/id/{id}", 1))
                 .andExpect(status().isAccepted());
