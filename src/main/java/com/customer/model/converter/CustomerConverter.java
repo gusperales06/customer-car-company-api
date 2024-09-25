@@ -2,6 +2,7 @@ package com.customer.model.converter;
 
 import com.customer.model.dto.CustomerDTO;
 import com.customer.model.entity.Customers;
+import com.customer.model.entity.CustomersInfo;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class CustomerConverter implements Converter<CustomerDTO, Customers> {
 
     @Override
     public Customers convert(CustomerDTO source) {
-        customer = new Customers(source.getFirstName(), source.getLastName(), source.getBirthdate());
+        customer = new Customers(source.getFirstName(), source.getLastName(), source.getBirthdate(), source.getPhoneNumber());
         if (customerId != null) {
             customer.setCustomerId(this.customerId);
         }
@@ -31,10 +32,16 @@ public class CustomerConverter implements Converter<CustomerDTO, Customers> {
 
     private void mapCustomerAdditionalInfo(CustomerDTO source) {
         if (!Objects.equals(source.getCustomersInfo(), null)) {
-            customer.setGender(source.getCustomersInfo().getGender());
-            customer.setHouseholdIncome(source.getCustomersInfo().getHouseholdIncome());
-            customer.setPhoneNumber(source.getCustomersInfo().getPhoneNumber());
-            customer.setEmail(source.getCustomersInfo().getEmail());
+            customer.setCustomersInfo();
+            customer.getCustomersInfo()
+                    .setGender(source.getCustomersInfo()
+                            .getGender());
+            customer.getCustomersInfo()
+                    .setHouseholdIncome(source.getCustomersInfo()
+                            .getHouseholdIncome());
+            customer.getCustomersInfo()
+                    .setEmail(source.getCustomersInfo()
+                            .getEmail());
         }
     }
 }
