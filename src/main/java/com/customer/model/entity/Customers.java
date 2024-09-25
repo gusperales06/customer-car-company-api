@@ -1,6 +1,7 @@
 package com.customer.model.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,25 +28,20 @@ public class Customers {
     @Column
     private LocalDate birthdate;
 
-    @Column
-    private String gender;
-
-    @Column(name = "household_income")
-    private String householdIncome;
-
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column
-    private String email;
+    @Embedded
+    private CustomersInfo customersInfo;
 
     public Customers() {
     }
 
-    public Customers(String firstName, String lastName, LocalDate birthdate) {
+    public Customers(String firstName, String lastName, LocalDate birthdate, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getCustomerId() {
@@ -80,22 +76,6 @@ public class Customers {
         this.birthdate = birthdate;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getHouseholdIncome() {
-        return householdIncome;
-    }
-
-    public void setHouseholdIncome(String householdIncome) {
-        this.householdIncome = householdIncome;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -104,27 +84,26 @@ public class Customers {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public CustomersInfo getCustomersInfo() {
+        return customersInfo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomersInfo() {
+        this.customersInfo = new CustomersInfo();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Customers)) return false;
         Customers customers = (Customers) o;
-        return Objects.equals(firstName, customers.firstName) && Objects.equals(lastName, customers.lastName) &&
-                Objects.equals(birthdate, customers.birthdate) && Objects.equals(gender, customers.gender) &&
-                Objects.equals(householdIncome, customers.householdIncome) && Objects.equals(phoneNumber, customers.phoneNumber) &&
-                Objects.equals(email, customers.email);
+        return Objects.equals(customerId, customers.customerId) && Objects.equals(firstName, customers.firstName) &&
+                Objects.equals(lastName, customers.lastName) && Objects.equals(birthdate, customers.birthdate) &&
+                Objects.equals(phoneNumber, customers.phoneNumber) && Objects.equals(customersInfo, customers.customersInfo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, firstName, lastName, birthdate, gender, householdIncome, phoneNumber, email);
+        return Objects.hash(customerId, firstName, lastName, birthdate, phoneNumber, customersInfo);
     }
 }
