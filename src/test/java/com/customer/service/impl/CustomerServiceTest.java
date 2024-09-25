@@ -49,18 +49,20 @@ class CustomerServiceTest {
 
     @BeforeEach
     void setUp() {
-        dummyEntity = new Customers("test", "test", LocalDate.of(1990, 2, 28));
+        dummyEntity = new Customers("test", "test", LocalDate.of(1990, 2, 28), "9998887766");
         dummyEntity.setCustomerId(1);
-        dummyEntity.setGender("Male");
-        dummyEntity.setHouseholdIncome("1000");
-        dummyEntity.setPhoneNumber("9998887766");
-        dummyEntity.setEmail("test@mail.com");
+        dummyEntity.setCustomersInfo();
+        dummyEntity.getCustomersInfo()
+                .setGender("Male");
+        dummyEntity.getCustomersInfo()
+                .setHouseholdIncome("1000");
+        dummyEntity.getCustomersInfo()
+                .setEmail("test@mail.com");
 
-        dummyCustomer = new CustomerDTO("test", "test", LocalDate.of(1990, 2, 28))
+        dummyCustomer = new CustomerDTO("test", "test", LocalDate.of(1990, 2, 28), "9998887766")
                 .customerInfo()
                 .gender("Male")
                 .householdIncome("1000")
-                .phoneNumber("9998887766")
                 .email("test@mail.com")
                 .build();
     }
@@ -117,9 +119,9 @@ class CustomerServiceTest {
 
     @Test
     void updateCustomerById_thenThrowException() {
-        when(repository.findById(anyInt())).thenReturn(Optional.ofNullable(dummyEntity));
+        when(repository.findById(1)).thenReturn(Optional.ofNullable(dummyEntity));
 
-        assertThrows(NonCustomerChangesException.class, () -> service.updateCustomerById(anyInt(), dummyCustomer));
+        assertThrows(NonCustomerChangesException.class, () -> service.updateCustomerById(1, dummyCustomer));
     }
 
     @Test

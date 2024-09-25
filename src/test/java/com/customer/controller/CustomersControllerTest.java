@@ -2,6 +2,7 @@ package com.customer.controller;
 
 import com.customer.model.dto.CustomerDTO;
 import com.customer.model.entity.Customers;
+import com.customer.model.entity.CustomersInfo;
 import com.customer.service.ICustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -53,18 +54,20 @@ class CustomersControllerTest {
 
     @BeforeEach
     void setUp() {
-        dummyEntity = new Customers("test", "test", LocalDate.of(1990, 2, 28));
+        dummyEntity = new Customers("test", "test", LocalDate.of(1990, 2, 28), "9998887722");
         dummyEntity.setCustomerId(1);
-        dummyEntity.setGender("Male");
-        dummyEntity.setHouseholdIncome("1000");
-        dummyEntity.setPhoneNumber("9998887722");
-        dummyEntity.setEmail("test@mail.com");
+        dummyEntity.setCustomersInfo();
+        dummyEntity.getCustomersInfo()
+                .setGender("Male");
+        dummyEntity.getCustomersInfo()
+                .setHouseholdIncome("1000");
+        dummyEntity.getCustomersInfo()
+                .setEmail("test@mail.com");
 
-        dummyCustomer = new CustomerDTO("test", "test", LocalDate.of(1990, 2, 28))
+        dummyCustomer = new CustomerDTO("test", "test", LocalDate.of(1990, 2, 28), "9998887766")
                 .customerInfo()
                 .gender("Male")
                 .householdIncome("1000")
-                .phoneNumber("9998887766")
                 .email("test@mail.com")
                 .build();
 
