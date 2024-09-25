@@ -12,19 +12,15 @@ public class CustomerInfoDTO {
     @PositiveOrZero(message = "The 'Household Income' must be equal or grater than 0")
     private String householdIncome;
 
-    @Size(min = 10, max = 13, message = "The 'Phone Number' must be valid")
-    private String phoneNumber;
-
     @Pattern(regexp = "^([\\w-\\.]+){1,64}@(\\w&&[^_]+){2,255}.[a-z]{2,}$", message = "The 'E-mail' must be a valid one")
     private String email;
 
     public CustomerInfoDTO() {
     }
 
-    public CustomerInfoDTO(String gender, String householdIncome, String phoneNumber, String email) {
+    public CustomerInfoDTO(String gender, String householdIncome, String email) {
         this.gender = gender;
         this.householdIncome = householdIncome;
-        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
@@ -44,14 +40,6 @@ public class CustomerInfoDTO {
         this.householdIncome = householdIncome;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -64,7 +52,6 @@ public class CustomerInfoDTO {
         private final CustomerDTO parent;
         private String gender;
         private String householdIncome;
-        private String phoneNumber;
         private String email;
 
         public CustomerInfoBuilder(final CustomerDTO parent) {
@@ -81,18 +68,13 @@ public class CustomerInfoDTO {
             return this;
         }
 
-        public CustomerInfoBuilder phoneNumber(final String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
         public CustomerInfoBuilder email(final String email) {
             this.email = email;
             return this;
         }
 
         public CustomerDTO build() {
-            return parent.customersInfo(new CustomerInfoDTO(gender, householdIncome, phoneNumber, email));
+            return parent.customersInfo(new CustomerInfoDTO(gender, householdIncome, email));
         }
     }
 
@@ -102,12 +84,12 @@ public class CustomerInfoDTO {
         if (o == null || getClass() != o.getClass()) return false;
         CustomerInfoDTO that = (CustomerInfoDTO) o;
         return Objects.equals(gender, that.gender) && Objects.equals(householdIncome, that.householdIncome) &&
-                Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(email, that.email);
+                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gender, householdIncome, phoneNumber, email);
+        return Objects.hash(gender, householdIncome, email);
     }
 
     @Override
@@ -115,7 +97,6 @@ public class CustomerInfoDTO {
         return "CustomerInfoDTO{" +
                 "gender='" + gender + '\'' +
                 ", householdIncome='" + householdIncome + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

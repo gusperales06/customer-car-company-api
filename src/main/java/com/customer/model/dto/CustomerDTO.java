@@ -22,15 +22,19 @@ public class CustomerDTO {
     @Past(message = "The 'Birthdate' should be valid past date")
     private LocalDate birthdate;
 
+    @Size(min = 10, max = 13, message = "The 'Phone Number' must be valid")
+    private String phoneNumber;
+
     private CustomerInfoDTO customersInfo;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String firstName, String lastName, LocalDate birthdate) {
+    public CustomerDTO(String firstName, String lastName, LocalDate birthdate, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getFirstName() {
@@ -57,6 +61,14 @@ public class CustomerDTO {
         this.birthdate = birthdate;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public CustomerInfoDTO getCustomersInfo() {
         return customersInfo;
     }
@@ -76,10 +88,8 @@ public class CustomerDTO {
         if (o == null || getClass() != o.getClass()) return false;
         CustomerDTO that = (CustomerDTO) o;
         return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) &&
-                Objects.equals(birthdate, that.birthdate) && Objects.equals(customersInfo.getGender(), that.customersInfo.getGender()) &&
-                Objects.equals(customersInfo.getHouseholdIncome(), that.customersInfo.getHouseholdIncome()) &&
-                Objects.equals(customersInfo.getPhoneNumber(), that.customersInfo.getHouseholdIncome()) &&
-                Objects.equals(customersInfo.getEmail(), that.customersInfo.getEmail());
+                Objects.equals(birthdate, that.birthdate) && Objects.equals(phoneNumber, that.phoneNumber) &&
+                Objects.equals(customersInfo, that.customersInfo);
     }
 
     @Override
