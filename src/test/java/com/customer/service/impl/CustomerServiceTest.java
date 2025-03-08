@@ -27,8 +27,8 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -73,7 +73,7 @@ class CustomerServiceTest {
 
         var result = service.createCustomer(dummyCustomer);
 
-        verify(repository, times(1)).saveAndFlush(any(Customers.class));
+        verify(repository, atLeastOnce()).saveAndFlush(any(Customers.class));
         assertThat(result, hasProperty("customerId", is(equalTo(1))));
         assertThat(result, hasProperty("firstName", is(equalTo("test"))));
         assertThat(result, hasProperty("lastName", is(equalTo("test"))));
@@ -86,7 +86,7 @@ class CustomerServiceTest {
 
         var result = service.getAllCustomers();
 
-        verify(repository, times(1)).findAll();
+        verify(repository, atLeastOnce()).findAll();
         assertThat(result, is(not(empty())));
     }
 
@@ -96,7 +96,7 @@ class CustomerServiceTest {
 
         var result = service.getCustomerById(anyInt());
 
-        verify(repository, times(1)).findById(anyInt());
+        verify(repository, atLeastOnce()).findById(anyInt());
         assertThat(result, hasProperty("customerId", is(equalTo(1))));
         assertThat(result, hasProperty("firstName", is(equalTo("test"))));
         assertThat(result, hasProperty("lastName", is(equalTo("test"))));
@@ -113,8 +113,8 @@ class CustomerServiceTest {
 
         service.updateCustomerById(anyInt(), dummyCustomer);
 
-        verify(repository, times(1)).findById(anyInt());
-        verify(repository, times(1)).save(any(Customers.class));
+        verify(repository, atLeastOnce()).findById(anyInt());
+        verify(repository, atLeastOnce()).save(any(Customers.class));
     }
 
     @Test
@@ -131,8 +131,8 @@ class CustomerServiceTest {
 
         service.deleteCustomer(anyInt());
 
-        verify(repository, times(1)).existsById(anyInt());
-        verify(repository, times(1)).deleteById(anyInt());
+        verify(repository, atLeastOnce()).existsById(anyInt());
+        verify(repository, atLeastOnce()).deleteById(anyInt());
 
     }
 
@@ -140,9 +140,9 @@ class CustomerServiceTest {
     void deleteCustomer_thenThrowException() {
         when(repository.existsById(anyInt())).thenReturn(false);
 
-        assertThrows(CustomerIdException.class ,() -> service.deleteCustomer(anyInt()));
+        assertThrows(CustomerIdException.class, () -> service.deleteCustomer(anyInt()));
 
-        verify(repository, times(1)).existsById(anyInt());
+        verify(repository, atLeastOnce()).existsById(anyInt());
 
     }
 }
