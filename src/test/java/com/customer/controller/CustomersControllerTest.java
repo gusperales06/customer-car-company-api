@@ -2,7 +2,6 @@ package com.customer.controller;
 
 import com.customer.model.dto.CustomerDTO;
 import com.customer.model.entity.Customers;
-import com.customer.model.entity.CustomersInfo;
 import com.customer.service.ICustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
