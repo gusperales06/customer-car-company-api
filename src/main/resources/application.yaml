@@ -20,9 +20,10 @@ sqlite:
   url: jdbc:sqlite:${URI}/sql/car-company-database/car-database.db
 logging:
   level:
+    root: [INFO, DEBUG, WARN, ERROR]
     org:
       hibernate:
-        SQL: DEBUG
+        SQL: [INFO, DEBUG, WARN, ERROR]
       type:
         descriptor:
           sql:
