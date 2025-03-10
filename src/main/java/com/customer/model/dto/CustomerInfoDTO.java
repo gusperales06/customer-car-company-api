@@ -1,8 +1,9 @@
 package com.customer.model.dto;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 public class CustomerInfoDTO {

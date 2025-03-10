@@ -1,15 +1,17 @@
 package com.customer.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 
 @Entity
 @Table(name = "Customers")
