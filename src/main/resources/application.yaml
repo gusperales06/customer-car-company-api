@@ -11,13 +11,17 @@ spring:
   jackson:
     date-format: yyyy-MM-dd
     property-naming-strategy: SNAKE_CASE
-    jpa:
-      database-platform: org.sqlite.hibernate.dialect.SQLiteDialect
-hibernate:
-  show_sql: true
-sqlite:
-  driver-class-name: org.sqlite.JDBC
-  url: jdbc:sqlite:${URI}/sql/car-company-database/car-database.db
+  datasource:
+    url: jdbc:sqlite:${URI}/sql/car-company-database/car-database.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-plataform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 logging:
   level:
     root: [INFO, DEBUG, WARN, ERROR]
