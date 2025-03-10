@@ -16,7 +16,6 @@ import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 
@@ -55,7 +54,7 @@ public class SpringFoxConfig {
             private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerProviderMappings(List<T> mappings) {
                 List<T> copy = mappings.stream() //
                         .filter(mapping -> mapping.getPatternParser() == null)
-                        .collect(Collectors.toList());
+                        .toList();
                 mappings.clear();
                 mappings.addAll(copy);
             }

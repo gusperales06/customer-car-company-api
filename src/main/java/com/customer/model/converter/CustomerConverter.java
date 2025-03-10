@@ -2,7 +2,6 @@ package com.customer.model.converter;
 
 import com.customer.model.dto.CustomerDTO;
 import com.customer.model.entity.Customers;
-import com.customer.model.entity.CustomersInfo;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
