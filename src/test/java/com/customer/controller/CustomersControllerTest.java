@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
@@ -35,14 +37,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@WebMvcTest(CustomersController.class)
+@ExtendWith(MockitoExtension.class)
 class CustomersControllerTest {
-    @MockBean
+    @Mock
     private ICustomerService service;
 
     @Autowired
     private MockMvc mockMvc;
+
+    @InjectMocks
+    private CustomersController controller;
 
     @Autowired
     ObjectMapper objMapper;
@@ -69,6 +75,8 @@ class CustomersControllerTest {
                 .householdIncome("1000")
                 .email("test@mail.com")
                 .build();
+
+        mockMvc = standaloneSetup(controller).build();
 
         objMapper = new ObjectMapper();
         objMapper.registerModule(new JavaTimeModule());
@@ -123,7 +131,6 @@ class CustomersControllerTest {
     @Test
     void updateCustomerById() throws Exception {
         var c = objMapper.writeValueAsString(dummyCustomer);
-        when(service.getCustomerById(anyInt())).thenReturn(dummyEntity);
 
         mockMvc.perform(put("/api/v1/customers/id/{id}", 1)
                         .contentType(APPLICATION_JSON_VALUE)
